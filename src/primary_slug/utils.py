@@ -24,9 +24,30 @@
 #  limitations under the License.
 #
 
+def get_prepopulated_value(field, instance):
+    """
+    Returns preliminary value based on `populate_from`.
+    """
+    if hasattr(field.populate_from, '__call__'):
+        # AutoSlugField(populate_from=lambda instance: ...)
+        return field.populate_from(instance)
+    else:
+        # AutoSlugField(populate_from='foo')
+        attr = getattr(instance, field.populate_from)
+        return callable(attr) and attr() or attr
+
+def crop_slug(field, slug):
+    if field.max_length < len(slug):
+        return slug[:field.max_length]
+    return slug
+
+def simple_slugify(data):
+    return data.lower().replace(' ', '-')
+
+
 import re
 
-def g2e(s):
+def greek2latin(s):
     # Δίφθογγοι αυ, ευ, ηυ
     s = re.sub(u'([αεηΑΕΗ])[υύ]([βγδζλμνραιυεοηωάίύέόήώϊϋΒΓΔΖΛΜΝΡΑΙΥΕΟΗΩΆΊΎΈΌΉΏΪΫ])', r'\1v\2', s)
     s = re.sub(u'([αεηΑΕΗ])[ΥΎ]([βγδζλμνραιυεοηωάίύέόήώϊϋΒΓΔΖΛΜΝΡΑΙΥΕΟΗΩΆΊΎΈΌΉΏΪΫ])', r'\1V\2', s)

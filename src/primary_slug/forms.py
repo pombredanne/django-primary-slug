@@ -26,7 +26,6 @@
 
 import re
 
-from django import forms
 from django.forms import SlugField
 from django.core.validators import RegexValidator
 
@@ -35,8 +34,5 @@ slug_re = re.compile(r'^[-\w]+$', re.UNICODE)
 validate_slug = RegexValidator(slug_re, _(u"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."), 'invalid')
 
 class PrimarySlugField(SlugField):
-    """
-    Form field
-    """
     default_validators = [validate_slug]
 

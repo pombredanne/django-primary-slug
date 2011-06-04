@@ -25,10 +25,12 @@
 #
 
 from django.db.models.fields import SlugField
+from django.core.urlresolvers import get_callable
+from primary_slug import settings
+from primary_slug import utils
 
-from primary_cms import settings
 
-
+default_slugify = get_callable(settings.PRIMARY_SLUG_SLUGIFY_FUNC)
 
 class PrimarySlugField(SlugField):
     """
@@ -40,51 +42,28 @@ class PrimarySlugField(SlugField):
         
         self.populate_from = kwargs.pop('populate_from', None)
         
-        self.slugify = kwargs.pop('slugify', slugify)
+        self.slugify = kwargs.pop('slugify', default_slugify)
         assert hasattr(self.slugify, '__call__')
     
     def pre_save(self, instance, add):
-
+        """Returns field's value just before saving."""
+        
         # get currently entered slug
-        value = self.value_from_object(instance)
+        slug = self.value_from_object(instance)
 
-        # autopopulate
-        if self.populate_from and not value:
-            value = get_prepopulated_value(self, instance)
+        # If no slug has been set and a ``populate_from`` field has been set,
+        # generate a slug from the value of the ``populate_from`` field.
+        if self.populate_from and not slug:
+            populate_from_field_value = utils.get_prepopulated_value(self, instance)
 
-        slug = self.slugify(value)
-
-        #if not slug:
-        #    # no incoming value,  use model name
-        #    slug = instance._meta.module_name
-
-        slug = utils.crop_slug(self, slug)
-
-        # ensure the slug is unique (if required)
-        if self.unique or self.unique_with:
-            slug = utils.generate_unique_slug(self, instance, slug)
-
-        assert slug, 'value is filled before saving'
-
-        # make the updated slug available as instance attribute
-        setattr(instance, self.name, slug)
-
+            # Slugify value
+            slug = self.slugify(populate_from_field_value)
+    
+            if slug:
+                # Crop slug
+                slug = utils.crop_slug(self, slug)
+                # Make the slug available as instance attribute
+                setattr(instance, self.name, slug)
+        
         return slug
-
-def get_prepopulated_value(field, instance):
-    """
-    Returns preliminary value based on `populate_from`.
-    """
-    if hasattr(field.populate_from, '__call__'):
-        # AutoSlugField(populate_from=lambda instance: ...)
-        return field.populate_from(instance)
-    else:
-        # AutoSlugField(populate_from='foo')
-        attr = getattr(instance, field.populate_from)
-        return callable(attr) and attr() or attr
-
-def crop_slug(field, slug):
-    if field.max_length < len(slug):
-        return slug[:field.max_length]
-    return slug
 
