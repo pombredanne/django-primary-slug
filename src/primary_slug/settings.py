@@ -27,5 +27,8 @@
 from django.conf import settings
 
 
-MY_APP_SETTING = getattr(settings, 'MY_APP_SETTING', '...')
+#DEFAULT_SLUGIFY = 'django.template.defaultfilters.slugify'
+#DEFAULT_SLUGIFY = 'django.template.defaultfilters.greek2latin'
+DEFAULT_SLUGIFY = 'primary_slug.utils.simple_slugify'
+PRIMARY_SLUG_SLUGIFY_FUNC = getattr(settings, 'PRIMARY_SLUG_SLUGIFY_FUNC', DEFAULT_SLUGIFY)
 
