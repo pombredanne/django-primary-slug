@@ -28,11 +28,13 @@ import re
 
 from django.forms import SlugField
 from django.core.validators import RegexValidator
+from django.utils.translation import ugettext_lazy as _
+from primary_slug import settings
 
 
-slug_re = re.compile(r'^[-\w]+$', re.UNICODE)
+slug_re = re.compile(r'^[%s]+$' % settings.PRIMARY_SLUG_VALID_CHARS)
 validate_slug = RegexValidator(slug_re, _(u"Enter a valid 'slug' consisting of letters, numbers, underscores or hyphens."), 'invalid')
 
-class PrimarySlugField(SlugField):
+class PrimarySlugFormField(SlugField):
     default_validators = [validate_slug]
 
