@@ -27,6 +27,9 @@
 def get_prepopulated_value(field, instance):
     """
     Returns preliminary value based on `populate_from`.
+    
+    Taken from django-autoslug.
+    
     """
     if hasattr(field.populate_from, '__call__'):
         # AutoSlugField(populate_from=lambda instance: ...)
@@ -35,11 +38,6 @@ def get_prepopulated_value(field, instance):
         # AutoSlugField(populate_from='foo')
         attr = getattr(instance, field.populate_from)
         return callable(attr) and attr() or attr
-
-def crop_slug(field, slug):
-    if field.max_length < len(slug):
-        return slug[:field.max_length]
-    return slug
 
 def simple_slugify(data):
     return data.lower().replace(' ', '-')
@@ -144,7 +142,7 @@ def greek2latin(s):
     s = re.sub(u'ΰ', r'y', s)
     s = re.sub(u'ς', r's', s)
     
-    return s
+    return simple_slugify(s)
     
 def get_decoded_input(text):
     try:
