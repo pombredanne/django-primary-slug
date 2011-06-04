@@ -17,7 +17,7 @@ Welcome to the *django-primary-slug*'s documentation!
 About this project
 ==================
 
-DESCRIPTION_DESCRIPTION_DESCRIPTION
+django-primary-slug provides a custom SlugField for Django projects.
 
 | **Author**: `George Notaras <http://www.g-loaded.eu/>`_
 | **Development Web Site**: `django-primary-slug project <http://www.codetrax.org/projects/django-primary-slug>`_

@@ -3,7 +3,7 @@
 #
 #  This file is part of django-primary-slug.
 #
-#  DESCRIPTION_DESCRIPTION_DESCRIPTION
+#  django-primary-slug provides a custom SlugField for Django projects.
 #
 #  Development Web Site:
 #    - http://www.codetrax.org/projects/django-primary-slug
@@ -66,7 +66,7 @@ if __name__=='__main__':
         maintainer = 'George Notaras',
         maintainer_email = 'gnot [at] g-loaded.eu',
         url = 'http://www.codetrax.org/projects/django-primary-slug',
-        description = 'DESCRIPTION_DESCRIPTION_DESCRIPTION',
+        description = 'django-primary-slug provides a custom SlugField for Django projects.',
         long_description = read('README'),
         download_url = 'https://source.codetrax.org/hgroot/django-primary-slug',
         platforms=['any'],

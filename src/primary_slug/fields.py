@@ -2,7 +2,7 @@
 #
 #  This file is part of django-primary-cms.
 #
-#  DESCRIPTION_DESCRIPTION_DESCRIPTION
+#  django-primary-slug provides a custom SlugField for Django projects.
 #
 #  Development Web Site:
 #    - http://www.codetrax.org/projects/django-primary-cms
