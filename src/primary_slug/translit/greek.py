@@ -36,8 +36,11 @@ def get_decoded_input(text):
 
 def greek2latin(s):
     """
+    Taken from the gr2en project: https://github.com/mpessas/gr2en
+    
     http://www.teicrete.gr/users/kutrulis/Ergalia/ELOT743.htm
     http://en.wikipedia.org/wiki/ISO_843
+    
     """
     
     # Δίφθογγοι αυ, ευ, ηυ
