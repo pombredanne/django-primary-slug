@@ -86,7 +86,7 @@ if __name__=='__main__':
         package_dir = {'': 'src'},
         packages = [
             'primary_slug',
-            #'primary_slug.templatetags',
+            'primary_slug.translit',
             #'primary_slug.management',
             #'primary_slug.management.commands',
         ],
