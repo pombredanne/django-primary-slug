@@ -26,9 +26,11 @@
 
 from django.db.models.fields import SlugField
 from django.core.urlresolvers import get_callable
+from django.utils.translation import ugettext_lazy as _
 from primary_slug import settings
 from primary_slug import utils
 from primary_slug.forms import PrimarySlugFormField
+
 
 
 default_slugify = get_callable(settings.PRIMARY_SLUG_SLUGIFY_FUNC)
@@ -58,6 +60,16 @@ class PrimarySlugField(SlugField):
         ``populate_from`` field. If this is not set, then the function defined
         in the ``PRIMARY_SLUG_SLUGIFY_FUNC`` setting is used.
 
+    The following code snippet illustrates how to use the ``PrimarySlugField``::
+
+        from django.db import models
+        from primary_slug.fields import PrimarySlugField
+        
+        class MyModel(models.Model):
+            title = models.CharField(max_length=160)
+            slug = PrimarySlugField(populate_from='title', max_length=160)
+    
+    
     """
     
     def __init__(self, *args, **kwargs):
@@ -103,4 +115,5 @@ class PrimarySlugField(SlugField):
         defaults = {'form_class': PrimarySlugFormField}
         defaults.update(kwargs)
         return super(PrimarySlugField, self).formfield(**defaults)
+
 
