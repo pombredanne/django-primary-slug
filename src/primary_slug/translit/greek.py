@@ -35,6 +35,11 @@ def get_decoded_input(text):
     return text
 
 def greek2latin(s):
+    """
+    http://www.teicrete.gr/users/kutrulis/Ergalia/ELOT743.htm
+    http://en.wikipedia.org/wiki/ISO_843
+    """
+    
     # Δίφθογγοι αυ, ευ, ηυ
     s = re.sub(u'([αεηΑΕΗ])[υύ]([βγδζλμνραιυεοηωάίύέόήώϊϋΒΓΔΖΛΜΝΡΑΙΥΕΟΗΩΆΊΎΈΌΉΏΪΫ])', r'\1v\2', s)
     s = re.sub(u'([αεηΑΕΗ])[ΥΎ]([βγδζλμνραιυεοηωάίύέόήώϊϋΒΓΔΖΛΜΝΡΑΙΥΕΟΗΩΆΊΎΈΌΉΏΪΫ])', r'\1V\2', s)
