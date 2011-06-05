@@ -39,7 +39,11 @@ def get_prepopulated_value(field, instance):
         attr = getattr(instance, field.populate_from)
         return callable(attr) and attr() or attr
 
+
 def simple_slugify(data):
+    return data.replace(' ', '-')
+
+def simple_slugify_lower(data):
     return data.lower().replace(' ', '-')
 
 
