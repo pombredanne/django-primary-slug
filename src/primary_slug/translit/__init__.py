@@ -23,26 +23,3 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-
-def get_prepopulated_value(field, instance):
-    """
-    Returns preliminary value based on `populate_from`.
-    
-    Taken from django-autoslug.
-    
-    """
-    if hasattr(field.populate_from, '__call__'):
-        # AutoSlugField(populate_from=lambda instance: ...)
-        return field.populate_from(instance)
-    else:
-        # AutoSlugField(populate_from='foo')
-        attr = getattr(instance, field.populate_from)
-        return callable(attr) and attr() or attr
-
-
-def simple_slugify(data):
-    return data.replace(' ', '-')
-
-def simple_slugify_lower(data):
-    return data.lower().replace(' ', '-')
-

@@ -28,7 +28,8 @@ from django.conf import settings
 
 
 #DEFAULT_SLUGIFY = 'django.template.defaultfilters.slugify'
-#DEFAULT_SLUGIFY = 'primary_slug.utils.greek2latin'
+#DEFAULT_SLUGIFY = 'primary_slug.translit.simple_slugify'
+#DEFAULT_SLUGIFY = 'primary_slug.translit.simple_slugify_lower'
 #DEFAULT_SLUGIFY = 'primary_slug.utils.simple_slugify_lower'
 DEFAULT_SLUGIFY = 'primary_slug.utils.simple_slugify'
 PRIMARY_SLUG_SLUGIFY_FUNC = getattr(settings, 'PRIMARY_SLUG_SLUGIFY_FUNC', DEFAULT_SLUGIFY)
