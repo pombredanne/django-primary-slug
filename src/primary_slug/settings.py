@@ -29,10 +29,13 @@ from django.conf import settings
 
 #DEFAULT_SLUGIFY = 'django.template.defaultfilters.slugify'
 #DEFAULT_SLUGIFY = 'primary_slug.utils.greek2latin'
+#DEFAULT_SLUGIFY = 'primary_slug.utils.simple_slugify_lower'
 DEFAULT_SLUGIFY = 'primary_slug.utils.simple_slugify'
 PRIMARY_SLUG_SLUGIFY_FUNC = getattr(settings, 'PRIMARY_SLUG_SLUGIFY_FUNC', DEFAULT_SLUGIFY)
 
-# '-_0-9a-zA-Zαβγδεζηθικλμνξοπρστυφχψωςάέήίϊΐόύϋΰώ'
+# '-_0-9a-zA-ZαβγδεζηθικλμνξοπρστυφχψωΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩςάέήίϊΐόύϋΰώΆΈΉΊΪΌΎΫΏ'
 # Set:  # -*- coding: utf-8 -*-   in the first line of settings.py if unicode chars are used.
+# and supply a properly decided string. Eg:
+# 
 PRIMARY_SLUG_VALID_CHARS = getattr(settings, 'PRIMARY_SLUG_VALID_CHARS', u'-_0-9a-zA-Z')
 
